@@ -7,6 +7,12 @@ pub fn string<'a, D: Deserializer<'a>>(de: D) -> Result<String, D::Error> {
     String::deserialize(de).map(|val| val.trim().to_owned())
 }
 
+/// Trims optional string during deserialization.
+pub fn option_string<'a, D: Deserializer<'a>>(de: D) -> Result<Option<String>, D::Error> {
+    let val = Option::<String>::deserialize(de)?;
+    Ok(val.map(|val| val.trim().to_owned()))
+}
+
 #[cfg(test)]
 mod tests {
     use serde::Deserialize;

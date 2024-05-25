@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Add `option_string()` function.
 - Add `vec_string()` function.
 
 ## 0.1.0
