@@ -23,15 +23,16 @@ jobs:
   test:
     needs: read_msrv
 
-    name: Test
-    runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
         toolchain:
           - { name: msrv, version: "${{ needs.read_msrv.outputs.msrv }}" }
           - { name: stable, version: stable }
+
+    name: Test / ${{ matrix.toolchain.name }}
+
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -51,4 +52,4 @@ jobs:
         run: just downgrade-msrv
 
       - name: Test
-        run: cargo test --workspace --all-features
+        run: just test-no-coverage
