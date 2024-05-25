@@ -1,3 +1,6 @@
 words:
+  - deserializers
   - detrim
   - docsrs
+  - rdme
+  - serde

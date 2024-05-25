@@ -2,7 +2,7 @@
 name = "detrim"
 version = "0.1.0"
 authors = ["Rob Ede <robjtede@icloud.com>"]
-description = "The double-int format represents an integer that can be stored in an IEEE 754 double-precision number without loss of precision"
+description = "String deserializers customization for serde"
 categories = ["encoding", "no-std", "no-std::no-alloc"]
 keywords = ["serde", "utilities", "deserialization"]
 repository = "https://github.com/x52dev/detrim"
