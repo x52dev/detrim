@@ -3,7 +3,7 @@ name = "detrim"
 version = "0.1.0"
 authors = ["Rob Ede <robjtede@icloud.com>"]
 description = "String deserializers customization for serde"
-categories = ["encoding", "no-std", "no-std::no-alloc"]
+categories = ["encoding", "no-std"]
 keywords = ["deserialization", "utilities", "serde"]
 repository = "https://github.com/x52dev/detrim"
 license = "MIT OR Apache-2.0"
@@ -11,7 +11,7 @@ edition = "2018"
 rust-version = "1.56.1"
 
 [dependencies]
-serde = { version = "1", default-features = false }
+serde = { version = "1", default-features = false, features = ["alloc"] }
 
 [dev-dependencies]
 serde = { version = "1", features = ["std", "derive"] }

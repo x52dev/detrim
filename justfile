@@ -23,7 +23,7 @@ test toolchain="":
 # Downgrade dev-dependencies necessary to run MSRV checks/tests.
 [private]
 downgrade-msrv:
-    @echo "No MSRV downgrades needed"
+    cargo update -p=syn --precise="2.0.56"
 
 # Run workspace test suite using MSRV.
 test-msrv: downgrade-msrv (test msrv_rustup)
