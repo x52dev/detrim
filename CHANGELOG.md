@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Add `hashset_string()` function behind on-by-default `std` crate feature.
+- Fix `string_non_empty()` and `option_string_non_empty()` functions when encountering `null`s.
 
 ## 0.1.1
 
