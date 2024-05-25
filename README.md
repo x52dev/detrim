@@ -16,37 +16,6 @@
 
 <!-- cargo-rdme start -->
 
-The double-int format represents an integer that can be stored in an IEEE 754 double-precision
-number without loss of precision.
-
-This crate has been designed for use with OpenAPI tooling that wish to support integer-based
-`format: double-int` fields. [See docs in the OpenAPI format registry.][reg_double_int]
-
-## Examples
-
-```rust
-#[derive(Debug, serde::Deserialize)]
-struct Config {
-    count: DoubleInt,
-}
-
-let config = toml::from_str::<Config>(r#"
-    count = 42
-"#).unwrap();
-assert_eq!(config.count, 42);
-
-let config = toml::from_str::<Config>(r#"
-    count = -42
-"#).unwrap();
-assert_eq!(config.count, -42);
-
-// count is outside the bounds of a double-int (> 2^53 in this case)
-// (this would usually be accepted by an i64)
-let config = toml::from_str::<Config>(r#"
-    count = 36028797018963968
-"#).unwrap_err();
-```
-
-[reg_double_int]: https://spec.openapis.org/registry/format/double-int
+TODO
 
 <!-- cargo-rdme end -->

@@ -6,6 +6,7 @@
 extern crate alloc;
 
 use alloc::{borrow::ToOwned, string::String};
+
 use serde::{de, Deserialize as _, Deserializer};
 
 pub fn string<'a, D: Deserializer<'a>>(de: D) -> Result<String, D::Error> {
