@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  merge_group:
+    types: [checks_requested]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  read_msrv:
+    name: Read MSRV
+    uses: actions-rust-lang/msrv/.github/workflows/msrv.yml@main
+
+  test:
+    needs: read_msrv
+
+    name: Test
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain:
+          - { name: msrv, version: "${{ needs.read_msrv.outputs.msrv }}" }
+          - { name: stable, version: stable }
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust (${{ matrix.toolchain.name }})
+        uses: actions-rust-lang/setup-rust-toolchain@v1.8.0
+        with:
+          toolchain: ${{ matrix.toolchain.version }}
+
+      - name: Install just, cargo-nextest
+        uses: taiki-e/install-action@v2.33.12
+        with:
+          tool: just,cargo-nextest
+
+      - name: Workaround MSRV issues
+        if: matrix.toolchain.name == 'msrv'
+        run: just downgrade-msrv
+
+      - name: Test
+        run: cargo test --workspace --all-features
