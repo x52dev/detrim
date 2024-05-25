@@ -10,7 +10,7 @@ pub fn string_non_empty<'a, D: Deserializer<'a>>(de: D) -> Result<String, D::Err
             &"non-empty string",
         )),
         Ok(val) => Ok(val.trim().to_owned()),
-        Err(_) => todo!(),
+        Err(err) => Err(err),
     }
 }
 
@@ -45,6 +45,7 @@ mod tests {
 
         serde_json::from_str::<Foo>(r#"{ "foo": "" }"#).unwrap_err();
         serde_json::from_str::<Foo>(r#"{ "foo": "  " }"#).unwrap_err();
+        serde_json::from_str::<Foo>(r#"{ "foo": null }"#).unwrap_err();
 
         assert_eq!(
             Foo::new("bar"),
