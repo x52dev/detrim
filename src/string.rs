@@ -28,7 +28,7 @@ mod tests {
         }
 
         serde_json::from_str::<Foo>(r#"{ "foo": 1 }"#).unwrap_err();
-        serde_json::from_str::<Foo>(r#"{ "foo": bool }"#).unwrap_err();
+        serde_json::from_str::<Foo>(r#"{ "foo": true }"#).unwrap_err();
 
         assert_eq!(
             Foo::new(""),

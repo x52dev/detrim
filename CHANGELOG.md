@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add `vec_string()` function.
+
 ## 0.1.0
 
 - Add `string()` function.
