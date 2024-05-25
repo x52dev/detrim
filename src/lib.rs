@@ -10,7 +10,7 @@ mod string_non_empty;
 mod vec_string;
 
 pub use crate::{
-    string::{option_string, string},
+    string::{cow_str, option_string, str, string},
     string_non_empty::{option_string_non_empty, string_non_empty},
     vec_string::vec_string,
 };
