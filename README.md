@@ -16,6 +16,6 @@
 
 <!-- cargo-rdme start -->
 
-String deserializers customization for serde.
+**De**serialization trimming for strings in serde models.
 
 <!-- cargo-rdme end -->

@@ -8,6 +8,25 @@ msrv_rustup := "+" + msrv
 _list:
     @just --list
 
+# Check project.
+check: && clippy
+    just --unstable --fmt --check
+    fd --hidden --extension=md --extension=yml --exec-batch prettier --check
+    fd --hidden --extension=toml --exec-batch taplo format --check
+    fd --hidden --extension=toml --exec-batch taplo lint
+    cargo +nightly fmt -- --check
+    cargo machete --with-metadata
+    cargo rdme --check
+
+# Format project.
+fmt:
+    just --unstable --fmt
+    cargo rdme --force
+    fd --hidden --extension=toml --exec-batch taplo format
+    cargo +nightly fmt
+    cargo rdme --force
+    fd --hidden --extension=md --extension=yml --exec-batch prettier --write
+
 # Clippy check workspace.
 clippy:
     cargo clippy --workspace --no-default-features
@@ -46,19 +65,3 @@ doc *args:
 # Build workspace documentation, open it, and watch for changes.
 doc-watch: (doc "--open")
     cargo watch -- @just doc
-
-# Check project.
-check: && clippy
-    just --unstable --fmt --check
-    fd --hidden --extension=md --extension=yml --exec-batch prettier --check
-    fd --hidden --extension=toml --exec-batch taplo format --check
-    fd --hidden --extension=toml --exec-batch taplo lint
-    cargo +nightly fmt -- --check
-
-# Format project.
-fmt:
-    just --unstable --fmt
-    cargo rdme --force
-    fd --hidden --extension=toml --exec-batch taplo format
-    cargo +nightly fmt
-    fd --hidden --extension=md --extension=yml --exec-batch prettier --write

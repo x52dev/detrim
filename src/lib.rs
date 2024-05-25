@@ -1,4 +1,4 @@
-//! String deserializers customization for serde.
+//! **De**serialization **trim**ming for strings in serde models.
 
 #![no_std]
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]
