@@ -2,5 +2,6 @@ words:
   - deserializers
   - detrim
   - docsrs
+  - hashset
   - rdme
   - serde

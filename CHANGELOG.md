@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Add `hashset_string()` function behind on-by-default `std` crate feature.
+
 ## 0.1.1
 
 - Add `option_string()` function.

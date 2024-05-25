@@ -1,3 +1,4 @@
 {
-  "cSpell.autoFormatConfigFile": true
+  "cSpell.autoFormatConfigFile": true,
+  "rust-analyzer.cargo.features": "all",
 }

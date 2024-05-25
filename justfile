@@ -35,6 +35,7 @@ clippy:
 
 # Run workspace test suite.
 test toolchain="":
+    cargo {{ toolchain }} nextest run --workspace --no-default-features
     cargo {{ toolchain }} nextest run --workspace --all-features
     cargo {{ toolchain }} test --doc --workspace --all-features
     RUSTDOCFLAGS="-D warnings" cargo {{ toolchain }} doc --workspace --all-features --no-deps
