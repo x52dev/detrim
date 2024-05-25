@@ -65,4 +65,58 @@ mod tests {
             serde_json::from_str(r#"{ "foo": "  bar  " }"#).unwrap(),
         );
     }
+
+    #[test]
+    fn option_string() {
+        #[derive(Debug, Deserialize, PartialEq, Eq)]
+        struct Foo {
+            #[serde(deserialize_with = "super::option_string")]
+            foo: Option<String>,
+        }
+
+        impl Foo {
+            fn none() -> Self {
+                Self { foo: None }
+            }
+
+            fn new(foo: impl Into<String>) -> Self {
+                Self {
+                    foo: Some(foo.into()),
+                }
+            }
+        }
+
+        assert_eq!(
+            Foo::none(),
+            serde_json::from_str(r#"{ "foo": null }"#).unwrap(),
+        );
+        assert_eq!(
+            Foo::new(""),
+            serde_json::from_str(r#"{ "foo": "" }"#).unwrap(),
+        );
+        assert_eq!(
+            Foo::new(""),
+            serde_json::from_str(r#"{ "foo": " " }"#).unwrap(),
+        );
+        assert_eq!(
+            Foo::new("bar"),
+            serde_json::from_str(r#"{ "foo": "bar" }"#).unwrap(),
+        );
+        assert_eq!(
+            Foo::new("bar"),
+            serde_json::from_str(r#"{ "foo": " bar" }"#).unwrap(),
+        );
+        assert_eq!(
+            Foo::new("bar"),
+            serde_json::from_str(r#"{ "foo": "  bar" }"#).unwrap(),
+        );
+        assert_eq!(
+            Foo::new("bar"),
+            serde_json::from_str(r#"{ "foo": "bar " }"#).unwrap(),
+        );
+        assert_eq!(
+            Foo::new("bar"),
+            serde_json::from_str(r#"{ "foo": "  bar  " }"#).unwrap(),
+        );
+    }
 }
