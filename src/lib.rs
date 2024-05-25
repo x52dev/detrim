@@ -9,10 +9,12 @@ use alloc::{borrow::ToOwned, string::String};
 
 use serde::{de, Deserialize as _, Deserializer};
 
+/// Trims string during deserialization.
 pub fn string<'a, D: Deserializer<'a>>(de: D) -> Result<String, D::Error> {
     String::deserialize(de).map(|val| val.trim().to_owned())
 }
 
+/// Trims string during deserialization, returning error if it ends up empty.
 pub fn string_non_empty<'a, D: Deserializer<'a>>(de: D) -> Result<String, D::Error> {
     match String::deserialize(de) {
         Ok(val) if val.trim().is_empty() => Err(de::Error::invalid_value(
@@ -24,6 +26,7 @@ pub fn string_non_empty<'a, D: Deserializer<'a>>(de: D) -> Result<String, D::Err
     }
 }
 
+/// Trims string during deserialization, returning `None` if it ends up empty.
 pub fn option_string_non_empty<'a, D: Deserializer<'a>>(de: D) -> Result<Option<String>, D::Error> {
     String::deserialize(de).map(|val| {
         Some(val.trim())
