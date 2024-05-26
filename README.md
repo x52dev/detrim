@@ -3,8 +3,8 @@
 <!-- prettier-ignore-start -->
 
 [![crates.io](https://img.shields.io/crates/v/detrim?label=latest)](https://crates.io/crates/detrim)
-[![Documentation](https://docs.rs/detrim/badge.svg?version=0.1.2)](https://docs.rs/detrim/0.1.2)
-[![dependency status](https://deps.rs/crate/detrim/0.1.2/status.svg)](https://deps.rs/crate/detrim/0.1.2)
+[![Documentation](https://docs.rs/detrim/badge.svg?version=0.1.3)](https://docs.rs/detrim/0.1.3)
+[![dependency status](https://deps.rs/crate/detrim/0.1.3/status.svg)](https://deps.rs/crate/detrim/0.1.3)
 ![MIT or Apache 2.0 licensed](https://img.shields.io/crates/l/detrim.svg)
 <br />
 [![CI](https://github.com/x52dev/detrim/actions/workflows/ci.yml/badge.svg)](https://github.com/x52dev/detrim/actions/workflows/ci.yml)

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.1.3
+
 - Fix `cow_str` when expecting to borrow from input data.
 
 ## 0.1.2
