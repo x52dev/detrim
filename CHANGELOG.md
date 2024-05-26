@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Fix `cow_str` when expecting to borrow from input data.
+
 ## 0.1.2
 
 - Add `hashset_string()` function behind on-by-default `std` crate feature.

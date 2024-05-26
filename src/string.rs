@@ -1,37 +1,19 @@
-use alloc::{
-    borrow::{Cow, ToOwned as _},
-    string::String,
-};
+use alloc::{borrow::ToOwned as _, string::String};
 
 use serde::{Deserialize as _, Deserializer};
 
 /// Trims a string slice during deserialization.
-pub fn str<'a, D: Deserializer<'a>>(de: D) -> Result<&'a str, D::Error> {
+pub fn str<'a, 'de: 'a, D: Deserializer<'de>>(de: D) -> Result<&'a str, D::Error> {
     <&'a str>::deserialize(de).map(|val| val.trim())
 }
 
-/// Trims a CoW string during deserialization.
-pub fn cow_str<'a, D: Deserializer<'a>>(de: D) -> Result<Cow<'a, str>, D::Error> {
-    let str = Cow::<'a, str>::deserialize(de)?;
-
-    Ok(match str {
-        Cow::Borrowed(str) => Cow::Borrowed(str.trim()),
-        Cow::Owned(str)
-            if str.starts_with(char::is_whitespace) || str.ends_with(char::is_whitespace) =>
-        {
-            Cow::Owned(str.trim().to_owned())
-        }
-        Cow::Owned(str) => Cow::Owned(str),
-    })
-}
-
 /// Trims a string during deserialization.
-pub fn string<'a, D: Deserializer<'a>>(de: D) -> Result<String, D::Error> {
+pub fn string<'de, D: Deserializer<'de>>(de: D) -> Result<String, D::Error> {
     String::deserialize(de).map(|val| val.trim().to_owned())
 }
 
 /// Trims an optional string during deserialization.
-pub fn option_string<'a, D: Deserializer<'a>>(de: D) -> Result<Option<String>, D::Error> {
+pub fn option_string<'de, D: Deserializer<'de>>(de: D) -> Result<Option<String>, D::Error> {
     let val = Option::<String>::deserialize(de)?;
     Ok(val.map(|val| val.trim().to_owned()))
 }
@@ -53,53 +35,6 @@ mod tests {
         impl<'a> Foo<'a> {
             fn new(foo: &'a str) -> Self {
                 Self { foo }
-            }
-        }
-
-        serde_json::from_str::<Foo<'static>>(r#"{ "foo": 1 }"#).unwrap_err();
-        serde_json::from_str::<Foo<'static>>(r#"{ "foo": true }"#).unwrap_err();
-
-        assert_eq!(
-            Foo::new(""),
-            serde_json::from_str(r#"{ "foo": "" }"#).unwrap(),
-        );
-        assert_eq!(
-            Foo::new(""),
-            serde_json::from_str(r#"{ "foo": " " }"#).unwrap(),
-        );
-        assert_eq!(
-            Foo::new("bar"),
-            serde_json::from_str(r#"{ "foo": "bar" }"#).unwrap(),
-        );
-        assert_eq!(
-            Foo::new("bar"),
-            serde_json::from_str(r#"{ "foo": " bar" }"#).unwrap(),
-        );
-        assert_eq!(
-            Foo::new("bar"),
-            serde_json::from_str(r#"{ "foo": "  bar" }"#).unwrap(),
-        );
-        assert_eq!(
-            Foo::new("bar"),
-            serde_json::from_str(r#"{ "foo": "bar " }"#).unwrap(),
-        );
-        assert_eq!(
-            Foo::new("bar"),
-            serde_json::from_str(r#"{ "foo": "  bar  " }"#).unwrap(),
-        );
-    }
-
-    #[test]
-    fn cow_str() {
-        #[derive(Debug, Deserialize, PartialEq, Eq)]
-        struct Foo<'a> {
-            #[serde(borrow, deserialize_with = "super::cow_str")]
-            foo: Cow<'a, str>,
-        }
-
-        impl<'a> Foo<'a> {
-            fn new(foo: impl Into<Cow<'a, str>>) -> Self {
-                Self { foo: foo.into() }
             }
         }
 
