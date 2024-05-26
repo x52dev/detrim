@@ -1,7 +1,11 @@
-use alloc::{borrow::ToOwned as _, str, string::String, vec::Vec};
+use alloc::{
+    borrow::{Cow, ToOwned as _},
+    str,
+    string::String,
+    vec::Vec,
+};
 use core::fmt;
 
-use alloc::borrow::Cow;
 use serde::{de, Deserializer};
 
 /// Trims a CoW string during deserialization.

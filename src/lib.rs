@@ -12,11 +12,11 @@ mod string;
 mod string_non_empty;
 mod vec_string;
 
+#[cfg(feature = "std")]
+pub use crate::hashset_string::hashset_string;
 pub use crate::{
     cow_str::cow_str,
     string::{option_string, str, string},
     string_non_empty::{option_string_non_empty, string_non_empty},
     vec_string::vec_string,
 };
-#[cfg(feature = "std")]
-pub use hashset_string::hashset_string;

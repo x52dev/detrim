@@ -1,7 +1,6 @@
-use core::iter::FromIterator as _;
-use std::collections::HashSet;
-
-use alloc::{borrow::ToOwned as _, string::String, vec::Vec};
+use std::{
+    borrow::ToOwned as _, collections::HashSet, iter::FromIterator as _, string::String, vec::Vec,
+};
 
 use serde::{Deserialize as _, Deserializer};
 
