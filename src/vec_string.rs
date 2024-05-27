@@ -7,7 +7,10 @@ pub fn vec_string<'a, D: Deserializer<'a>>(de: D) -> Result<Vec<String>, D::Erro
     let mut list = Vec::<String>::deserialize(de)?;
 
     for item in &mut list {
-        *item = item.trim().to_owned();
+        #[allow(clippy::assigning_clones)]
+        {
+            *item = item.trim().to_owned();
+        }
     }
 
     Ok(list)
