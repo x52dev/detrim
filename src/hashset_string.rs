@@ -12,7 +12,10 @@ pub fn hashset_string<'a, D: Deserializer<'a>>(de: D) -> Result<HashSet<String>,
     let mut set = Vec::<String>::deserialize(de)?;
 
     for item in &mut set {
-        *item = item.trim().to_owned();
+        #[allow(clippy::assigning_clones)]
+        {
+            *item = item.trim().to_owned();
+        }
     }
 
     Ok(HashSet::from_iter(set))
