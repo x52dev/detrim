@@ -43,8 +43,8 @@ test toolchain="":
 # Downgrade dev-dependencies necessary to run MSRV checks/tests.
 [private]
 downgrade-msrv:
-    cargo {{ msrv_rustup }} update -p=serde_json --precise="1.0.120" # transitive memchr in 1.0.121 not 
-    cargo {{ msrv_rustup }} update -p=syn --precise="2.0.56" # TODO: why
+    cargo update -p=serde_json --precise="1.0.120" # transitive memchr in 1.0.121 not 
+    cargo update -p=syn --precise="2.0.56" # TODO: why
 
 # Run workspace test suite using MSRV.
 test-msrv: downgrade-msrv (test msrv_rustup)
