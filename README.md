@@ -18,4 +18,20 @@
 
 **De**serialization **trim**ming for strings in serde models.
 
+## Examples
+
+```rust
+#[derive(Debug, serde::Deserialize)]
+struct Form {
+    #[serde(deserialize_with = "detrim::string")]
+    name: String,
+}
+
+let form = serde_json::from_str::<Form>(r#"{ "name": "ferris" }"#).unwrap();
+assert_eq!(form.name, "ferris");
+
+let form = serde_json::from_str::<Form>(r#"{ "name": "  ferris   " }"#).unwrap();
+assert_eq!(form.name, "ferris");
+```
+
 <!-- cargo-rdme end -->

@@ -21,7 +21,6 @@ check: && clippy
 # Format project.
 fmt:
     just --unstable --fmt
-    cargo rdme --force
     fd --hidden --extension=toml --exec-batch taplo format
     cargo +nightly fmt
     cargo rdme --force

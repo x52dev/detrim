@@ -1,4 +1,20 @@
 //! **De**serialization **trim**ming for strings in serde models.
+//!
+//! # Examples
+//!
+//! ```
+//! #[derive(Debug, serde::Deserialize)]
+//! struct Form {
+//!     #[serde(deserialize_with = "detrim::string")]
+//!     name: String,
+//! }
+//!
+//! let form = serde_json::from_str::<Form>(r#"{ "name": "ferris" }"#).unwrap();
+//! assert_eq!(form.name, "ferris");
+//!
+//! let form = serde_json::from_str::<Form>(r#"{ "name": "  ferris   " }"#).unwrap();
+//! assert_eq!(form.name, "ferris");
+//! ```
 
 #![cfg_attr(not(feature = "std"), no_std)]
 #![cfg_attr(docsrs, feature(doc_auto_cfg))]
