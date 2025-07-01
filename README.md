@@ -1,3 +1,7 @@
+## Source Code Merged Into <https://github.com/x52dev/serde-utils>
+
+---
+
 # `detrim`
 
 <!-- prettier-ignore-start -->
